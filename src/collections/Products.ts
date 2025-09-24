@@ -2,9 +2,9 @@ import { CollectionConfig } from 'payload'
 
 export const Products: CollectionConfig = {
   slug: 'products',
+  defaultSort: '-createdAt',
   admin: {
     useAsTitle: 'name',
-    defaultSort: '-createdAt',
   },
   access: {
     read: () => true,

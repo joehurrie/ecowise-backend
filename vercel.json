@@ -1,12 +1,9 @@
 {
+  "version": 2,
   "build": {
     "env": {
       "NODE_ENV": "production"
     }
-  },
-  "functions": {
-    "api/**/*.[jt]s": {
-      "runtime": "nodejs18.x"
-    }
   }
 }
+
