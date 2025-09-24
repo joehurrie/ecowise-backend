@@ -9,16 +9,25 @@ export const Products: CollectionConfig = {
   access: {
     read: () => true,
     create: ({ req }) => req.user?.role === 'vendor' || req.user?.role === 'admin',
-    update: ({ req, doc }) => {
-      if (req.user?.role === 'admin') return true
-      if (req.user?.role === 'vendor' && doc?.vendor === req.user.id) return true
-      return false
-    },
-    delete: ({ req, doc }) => {
-      if (req.user?.role === 'admin') return true
-      if (req.user?.role === 'vendor' && doc?.vendor === req.user.id) return true
-      return false
-    },
+    update: (args) => {
+  const { req } = args
+  const doc = 'doc' in args ? (args.doc as { vendor?: string }) : null
+
+  if (req.user?.role === 'admin') return true
+  if (req.user?.role === 'vendor' && String(doc?.vendor) === String(req.user.id)) return true
+
+  return false
+},
+delete: (args) => {
+  const { req } = args
+  const doc = 'doc' in args ? (args.doc as { vendor?: string }) : null
+
+  if (req.user?.role === 'admin') return true
+  if (req.user?.role === 'vendor' && String(doc?.vendor) === String(req.user.id)) return true
+
+  return false
+},
+
   },
   hooks: {
     beforeChange: [
